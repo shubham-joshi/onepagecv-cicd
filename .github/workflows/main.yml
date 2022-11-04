@@ -1,21 +1,16 @@
-name: SSH Deploy
-on:
-  push:
-    branches: [main]
-
+name: remote ssh command
+on: [push]
 jobs:
-  job_one:
-    name: Deploy
+
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      name: test onepagecv deploy via SSH
-      uses: appleboy/ssh-action@v0.1.5
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
       with:
         host: cicd.shubhamjoshi.tech
         username: azureuser
         key: ${{secrets.ONEPAGECV_SECRET}}
         port: 22
-        script: |
-          cd /var/www/html/onepagecv-cicd/
-          git pull origin main
-          git status
+        script: whoami
