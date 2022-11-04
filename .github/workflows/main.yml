@@ -6,11 +6,14 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
+    - name: Deploying code over SSH
       uses: appleboy/ssh-action@master
       with:
         host: cicd.shubhamjoshi.tech
         username: azureuser
         key: ${{secrets.ONEPAGECV_SECRET}}
         port: 22
-        script: whoami
+        script: |
+          cd /var/www/html/onepagecv-cicd/
+          git pull origin main
+          git status
